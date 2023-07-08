@@ -1,0 +1,24 @@
+h1 {
+    font-family: 'Oswald', 'Roboto';
+    font-size: 40px;
+    font-weight: 800px;
+    text-shadow: 3px 2px #d5d2d271;
+    margin: 0;
+    padding: 20px;
+   color:rgb(255, 255, 255);
+  
+}
+
+.header-banner {
+    background-color: rgb(57, 57, 57);
+    margin: 0;
+    margin-bottom: 30px;
+}
+
+body {
+    margin:0;
+    background-color: aliceblue;
+    padding: 0;
+} 
+
+.photo-icon {margin-right: 5px;}

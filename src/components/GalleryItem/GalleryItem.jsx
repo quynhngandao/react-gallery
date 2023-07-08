@@ -5,14 +5,15 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea, CardActions } from '@mui/material';
 import HandleCount from '../HandleCount/HandleCount';
+import './GalleryItem.css'
 
 function GalleryItem(props) {
   return (
-    <Card sx={{ maxWidth: 500 }}>
+    <Card className="card" sx={{ maxWidth: 400}}>
       <CardActionArea>
         <CardMedia
           component="img"
-          height="300"
+          height="250"
           image={props.item.path}
           alt={props.item.alt}
         />
@@ -25,7 +26,7 @@ function GalleryItem(props) {
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
+      <CardActions className='content-btn'>
         <HandleCount likes={props.likes} updateLikes={props.updateLikes} item={props.item} />
       </CardActions>
     </Card>

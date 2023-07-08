@@ -46,7 +46,6 @@ useEffect(() => {
     return (
       <div className="App">
         <Header/>
-        <h2 className="title">Display Gallery</h2>
         <GalleryList galleryList={galleryList} updateLikes={updateLikes}/>
       </div>
     );

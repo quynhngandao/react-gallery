@@ -2,10 +2,12 @@ import * as React from 'react';
 import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import './HandleCount.css'
 
  function notificationsLabel(count) {
-    if (count >= 0) {
-    return `${count} notifications`;}
+  if (count >=0) {
+    return count;
+  }
   }
 
 function HandleCount(props) {
@@ -22,10 +24,10 @@ function HandleCount(props) {
       <Badge badgeContent={props.item.likes} color="secondary">
       <FavoriteIcon />
       </Badge>
+      <p className='text'>{props.item.likes} person likes this picture</p>
     </IconButton>
   );
 }
-
 
 export default HandleCount;
 
