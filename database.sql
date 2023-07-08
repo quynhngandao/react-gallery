@@ -7,4 +7,4 @@ CREATE TABLE weekend_gallery (
 );
 
 INSERT INTO weekend_gallery (alt, path, description)
-VALUES ('a goat', 'images/goat_small.jpg', 'GOATED'), ('a cat', 'images/cat.jpeg', 'KATO');
+VALUES ('cat', 'images/cheeto.jepg', 'Cheeto is cuddly and mellow'), ('dog', 'images/eva.jpeg', 'Eva is shy'),  ('dog', 'images/kuma.jepg', 'Kuma is shy and socially awkward'),  ('dog', 'images/petunia.jepg', 'Petunia is sweet'),  ('dog', 'images/roxie.jepg', 'Roxie is smart');
