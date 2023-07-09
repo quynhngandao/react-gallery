@@ -4,6 +4,8 @@ import Header from '../Header/Header';
 import axios from "axios";
 import { useState, useEffect } from "react";
 import GalleryList from '../GalleryList/GalleryList'
+import GalleryForm from '../GalleryForm/GalleryForm';
+import { get } from 'jquery';
 
 function App() {
   const [galleryList, setGalleryList] = useState([]);
@@ -28,6 +30,21 @@ useEffect(() => {
   getItems();
 }, [])
 
+//POST 
+const postItems = (newItem) => {
+  axios({
+    method: "POST",
+    url: '/gallery',
+    data: newItem
+  }).then((response) => {
+    console.log('POST successful', response)
+    getItems()
+  }).catch((error) => {
+    console.log('Error in POST', error)
+    alert('Error in POST')
+  })
+}
+
   // PUT
   const updateLikes = (likesToUpdate) => {
     axios({
@@ -42,11 +59,24 @@ useEffect(() => {
     })
   }
 
-
+// DELETE 
+const deleteItem = (itemToDelete) => {
+  axios({
+    method:"DELETE",
+    url: `/gallery/${itemToDelete.id}`
+  }).then((response) => {
+    console.log('Deleted item', response);
+    getItems();
+    }).catch((error) => {
+      console.log('Error Deleting item', error)
+      alert('Error in deleting in DELETE')
+    })
+}
     return (
       <div className="App">
         <Header/>
-        <GalleryList galleryList={galleryList} updateLikes={updateLikes}/>
+        <GalleryForm className="form" postItems={postItems}/>
+        <GalleryList className="list" galleryList={galleryList} updateLikes={updateLikes} deleteItem={deleteItem}/>
       </div>
     );
 }

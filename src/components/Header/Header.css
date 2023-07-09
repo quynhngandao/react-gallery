@@ -1,8 +1,8 @@
 h1 {
-    font-family: 'Oswald', 'Roboto';
-    font-size: 40px;
+    font-family: 'Lilita one';
+    font-size: 50px;
     font-weight: 800px;
-    text-shadow: 3px 2px #d5d2d271;
+    text-shadow: 4px 2px #242323ad;
     margin: 0;
     padding: 20px;
    color:rgb(255, 255, 255);
@@ -10,7 +10,7 @@ h1 {
 }
 
 .header-banner {
-    background-color: rgb(57, 57, 57);
+    background-color:#0654a2cf;
     margin: 0;
     margin-bottom: 30px;
 }
