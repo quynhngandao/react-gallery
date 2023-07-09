@@ -17,7 +17,7 @@ This is display of a gallery built with React. The data are stored in a postgreS
 
 ## Screen Shots
 
-![Screenshot](/)
+![Screenshot](/wireframes/screenshot.png)
 
 ### Prerequisites
 
