@@ -20,7 +20,7 @@ function HandleCount(props) {
  }
 
   return (
-    <IconButton  onClick={handleUpdateLikes} size="small" color="primary" aria-label={notificationsLabel(props.item.likes)}>
+    <IconButton  onClick={handleUpdateLikes} size="medium" color="primary" aria-label={notificationsLabel(props.item.likes)}>
       <Badge badgeContent={props.item.likes} color="secondary">
       <FavoriteIcon />
       </Badge>

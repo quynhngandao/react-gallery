@@ -5,6 +5,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import GalleryList from '../GalleryList/GalleryList'
 import GalleryForm from '../GalleryForm/GalleryForm';
+import { get } from 'jquery';
 
 function App() {
   const [galleryList, setGalleryList] = useState([]);
@@ -58,12 +59,24 @@ const postItems = (newItem) => {
     })
   }
 
-
+// DELETE 
+const deleteItem = (itemToDelete) => {
+  axios({
+    method:"DELETE",
+    url: `/gallery/${itemToDelete.id}`
+  }).then((response) => {
+    console.log('Deleted item', response);
+    getItems();
+    }).catch((error) => {
+      console.log('Error Deleting item', error)
+      alert('Error in deleting in DELETE')
+    })
+}
     return (
       <div className="App">
         <Header/>
         <GalleryForm className="form" postItems={postItems}/>
-        <GalleryList className="list" galleryList={galleryList} updateLikes={updateLikes}/>
+        <GalleryList className="list" galleryList={galleryList} updateLikes={updateLikes} deleteItem={deleteItem}/>
       </div>
     );
 }

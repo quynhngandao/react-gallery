@@ -5,7 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea, CardActions } from '@mui/material';
 import HandleCount from '../HandleCount/HandleCount';
-import Box from '@mui/material/Box';
+import HandleDelete from '../HandleDelete/HandleDelete';
 import './GalleryItem.css'
 
 function GalleryItem(props) {
@@ -28,13 +28,14 @@ function GalleryItem(props) {
           <Typography gutterBottom variant="h5" component="div">
             {props.item.name}
           </Typography>
-          <Typography  sx={{ textTransform: 'capitalize', letterSpacing:2, variant:"body1", color:"#7B9CEA", fontWeight:'bold'}} >
+          <Typography  sx={{ textTransform: 'capitalize', letterSpacing:2, variant:"body1", color:"#0F66D0", fontWeight:'bold'}} >
             {props.item.description}
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions className='content-btn'>
+      <CardActions className='content-btn' sx={{justifyContent:"space-evenly"}}>
         <HandleCount likes={props.likes} updateLikes={props.updateLikes} item={props.item} />
+        <HandleDelete deleteItem={props.deleteItem} item={props.item} />
       </CardActions>
     </Card>
   );
