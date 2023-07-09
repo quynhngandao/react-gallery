@@ -24,7 +24,7 @@ function HandleCount(props) {
       <Badge badgeContent={props.item.likes} color="secondary">
       <FavoriteIcon />
       </Badge>
-      <p className='text'>{props.item.likes} person likes this picture</p>
+      <p className='text'>{props.item.likes} likes </p>
     </IconButton>
   );
 }

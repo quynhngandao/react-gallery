@@ -5,15 +5,22 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea, CardActions } from '@mui/material';
 import HandleCount from '../HandleCount/HandleCount';
+import Box from '@mui/material/Box';
 import './GalleryItem.css'
 
 function GalleryItem(props) {
   return (
-    <Card className="card" sx={{ maxWidth: 400}}>
+    <Card className="card" sx={{ maxWidth: 500, boxShadow: 10,
+      bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#101010' : '#fff'),
+      color: (theme) =>
+        theme.palette.mode === 'dark' ? 'grey.200' : 'grey.500',
+      p: 2,
+      m: 2,
+      borderRadius: 3,}}>
       <CardActionArea>
         <CardMedia
           component="img"
-          height="250"
+          height="300"
           image={props.item.path}
           alt={props.item.alt}
         />
@@ -21,7 +28,7 @@ function GalleryItem(props) {
           <Typography gutterBottom variant="h5" component="div">
             {props.item.name}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography  sx={{ textTransform: 'capitalize', letterSpacing:2, variant:"body1", color:"#7B9CEA", fontWeight:'bold'}} >
             {props.item.description}
           </Typography>
         </CardContent>

@@ -4,6 +4,7 @@ import Header from '../Header/Header';
 import axios from "axios";
 import { useState, useEffect } from "react";
 import GalleryList from '../GalleryList/GalleryList'
+import GalleryForm from '../GalleryForm/GalleryForm';
 
 function App() {
   const [galleryList, setGalleryList] = useState([]);
@@ -28,6 +29,21 @@ useEffect(() => {
   getItems();
 }, [])
 
+//POST 
+const postItems = (newItem) => {
+  axios({
+    method: "POST",
+    url: '/gallery',
+    data: newItem
+  }).then((response) => {
+    console.log('POST successful', response)
+    getItems()
+  }).catch((error) => {
+    console.log('Error in POST', error)
+    alert('Error in POST')
+  })
+}
+
   // PUT
   const updateLikes = (likesToUpdate) => {
     axios({
@@ -46,7 +62,8 @@ useEffect(() => {
     return (
       <div className="App">
         <Header/>
-        <GalleryList galleryList={galleryList} updateLikes={updateLikes}/>
+        <GalleryForm className="form" postItems={postItems}/>
+        <GalleryList className="list" galleryList={galleryList} updateLikes={updateLikes}/>
       </div>
     );
 }
