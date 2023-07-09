@@ -1,55 +1,60 @@
-import React, { useState } from 'react';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import { Grid } from '@mui/material';
-import SendIcon from '@mui/icons-material/Send';
-import axios from 'axios';
-import { ContactlessOutlined } from '@mui/icons-material';
+import React, { useState } from "react";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import { Grid } from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
 
-function GalleryForm({ postItems }) {
-  const [newAlt, setNewAlt] = useState('');
-  const [newPath, setNewPath] = useState('');
-  const [newDescription, setNewDescription] = useState('');
-  
-  const handleImageUpload = (file) => {
-
-    const formData = new FormData();
-    formData.append('image', file);
-
-    axios.post('/gallery', formData)
-      .then((response) => {
-        setNewPath(`/images/${response.data.filePath}`);
-        console.log(response.data.filePath, "filepath")
-      })
-      .catch((error) => {
-        console.error('Error uploading image:', error);
-      });
-  };
+function GalleryForm({ postItems, postImage }) {
+  const [newAlt, setNewAlt] = useState("");
+  const [newPath, setNewPath] = useState("");
+  const [newDescription, setNewDescription] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log('button clicked');
+    console.log("button clicked");
 
     const newItem = {
-        alt: newAlt,
-        path: newPath,
-        description: newDescription,
-      };
+      alt: newAlt,
+      path: newPath,
+      description: newDescription,
+    };
 
     postItems(newItem);
 
-    setNewAlt('');
-    setNewPath('');
-    setNewDescription('');
+    if (newPath) {
+      const fileInput = document.querySelector('input[type="file"]');
+      const file = fileInput.files[0];
+      const formData = new FormData();
+      formData.append("alt", newAlt);
+      formData.append("image", file);
+      formData.append("description", newDescription);
+      
+      postImage(FormData);
+    }
+    setNewAlt("");
+    setNewPath("");
+    setNewDescription("");
   }
 
+  function handleFileChange(e) {
+    e.stopPropagation();
+    e.preventDefault();
 
+    const file = e.target.files[0];
+    setNewPath(URL.createObjectURL(file));
+  }
 
   return (
     <div className="form-container">
-      <form action="/single" method="POST" encType="multipart/form-data" className="form" onSubmit={handleSubmit}>
-        <Grid container spacing={4} alignItems="flex-end">
-          <Grid item xs={4}>
+      <form
+        action="/single"
+        method="POST"
+        encType="multipart/form-data"
+        className="form"
+        onSubmit={handleSubmit}
+      >
+        <Grid container spacing={4} justifyContent="space-evenly">
+          <Grid item xs={4} >
             <TextField
               className="name"
               label="Name"
@@ -59,8 +64,8 @@ function GalleryForm({ postItems }) {
               fullWidth
             />
           </Grid>
-          <Grid>
-          <TextField
+          <Grid item xs={4}>
+            <TextField
               className="path"
               label="URL"
               placeholder="Link to image"
@@ -83,9 +88,9 @@ function GalleryForm({ postItems }) {
             <input
               type="file"
               name="image"
-              onChange={(e) => handleImageUpload(e.target.files[0])}
+              onChange={handleFileChange}
             />
-                   {newPath && <img src={newPath} alt="Uploaded" />}
+            {newPath && <img src={newPath} alt="Uploaded" style={{ maxWidth:'400px', maxHeight: '400px', marginTop: '20px'}}/>}
           </Grid>
           <Grid item xs={12}>
             <Button type="submit" variant="contained" endIcon={<SendIcon />}>

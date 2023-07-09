@@ -8,7 +8,10 @@ import GalleryForm from '../GalleryForm/GalleryForm';
 
 function App() {
   const [galleryList, setGalleryList] = useState([]);
+  const [newAlt, setNewAlt] = useState('');
   const [newPath, setNewPath] = useState('');
+  const [newDescription, setNewDescription] = useState('');
+  
 
   // GET 
   const getItems = () => {  
@@ -59,16 +62,17 @@ const postItems = (newItem) => {
 }
 
 //POST 
-const postImage = (file) => {
+const postImage = (file, alt, description) => {
   const formData = new FormData();
+  formData.append('alt', newAlt);
   formData.append('image', file);
+  formData.append('description', newDescription);
 
-  axios.post('/gallery', formData)
-    .then((response) => {
-      getItems
-      // Handle the response (e.g., update the newPath state with the file path)
-      setNewPath(response.data.filePath);
-    })
+  axios.post('/single', formData)
+      .then((response) => {
+        setNewPath(`/single/${response.data.filePath}`);
+        console.log(response.data.filePath, "filepath")
+      })
     .catch((error) => {
       // Handle any errors
       console.error('Error uploading image:', error);
