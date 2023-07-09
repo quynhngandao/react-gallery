@@ -25,9 +25,6 @@ function GalleryItem(props) {
           alt={props.item.alt}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {props.item.name}
-          </Typography>
           <Typography  sx={{ textTransform: 'capitalize', letterSpacing:2, variant:"body1", color:"#0F66D0", fontWeight:'bold'}} >
             {props.item.description}
           </Typography>

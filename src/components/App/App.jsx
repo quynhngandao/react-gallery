@@ -5,10 +5,10 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import GalleryList from '../GalleryList/GalleryList'
 import GalleryForm from '../GalleryForm/GalleryForm';
-import { get } from 'jquery';
 
 function App() {
   const [galleryList, setGalleryList] = useState([]);
+  const [newPath, setNewPath] = useState('');
 
   // GET 
   const getItems = () => {  
@@ -21,13 +21,27 @@ function App() {
         setGalleryList(response.data);
     }).catch((error) => {
       console.log("Error on GET: ", error);
-      alert('Error in GET')
   })
+}
+
+ // GET 
+ const getImage = () => {  
+  axios({
+    method: "GET", 
+    url: '/single',
+  }).then((response) => {
+    console.log("Response: ", response);
+      console.log("Response.data: ", response.data);
+      setGalleryList(response.data);
+  }).catch((error) => {
+    console.log("Error on GET: ", error);
+})
 }
 
 // useEffect
 useEffect(() => {
   getItems();
+  getImage()
 }, [])
 
 //POST 
@@ -41,9 +55,26 @@ const postItems = (newItem) => {
     getItems()
   }).catch((error) => {
     console.log('Error in POST', error)
-    alert('Error in POST')
   })
 }
+
+//POST 
+const postImage = (file) => {
+  const formData = new FormData();
+  formData.append('image', file);
+
+  axios.post('/gallery', formData)
+    .then((response) => {
+      getItems
+      // Handle the response (e.g., update the newPath state with the file path)
+      setNewPath(response.data.filePath);
+    })
+    .catch((error) => {
+      // Handle any errors
+      console.error('Error uploading image:', error);
+    });
+};
+
 
   // PUT
   const updateLikes = (likesToUpdate) => {
@@ -55,7 +86,6 @@ const postItems = (newItem) => {
       getItems()
     }).catch((error)=> {
       console.log('error updating likes', error)
-      alert('Error updating in PUT')
     })
   }
 
@@ -69,13 +99,12 @@ const deleteItem = (itemToDelete) => {
     getItems();
     }).catch((error) => {
       console.log('Error Deleting item', error)
-      alert('Error in deleting in DELETE')
     })
 }
     return (
       <div className="App">
         <Header/>
-        <GalleryForm className="form" postItems={postItems}/>
+        <GalleryForm className="form" postItems={postItems} postImage={postImage}/>
         <GalleryList className="list" galleryList={galleryList} updateLikes={updateLikes} deleteItem={deleteItem}/>
       </div>
     );
