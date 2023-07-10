@@ -10,12 +10,10 @@ router.get("/", (req, res) => {
   pool
     .query(queryText)
     .then((result) => {
-      // console logging out result received from server
       console.log(`Database query successful`, result);
       res.send(result.rows);
     })
     .catch((error) => {
-      // console logging out any errors that arise
       console.log(`Error making database query ${sqlQuery}`, error);
       res.sendStatus(500);
     });

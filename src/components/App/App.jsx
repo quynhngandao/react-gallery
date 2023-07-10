@@ -12,7 +12,6 @@ function App() {
   const [newPath, setNewPath] = useState('');
   const [newDescription, setNewDescription] = useState('');
   
-
   // GET 
   const getItems = () => {  
     axios({
@@ -27,24 +26,9 @@ function App() {
   })
 }
 
- // GET 
- const getImage = () => {  
-  axios({
-    method: "GET", 
-    url: '/single',
-  }).then((response) => {
-    console.log("Response: ", response);
-      console.log("Response.data: ", response.data);
-      setGalleryList(response.data);
-  }).catch((error) => {
-    console.log("Error on GET: ", error);
-})
-}
-
 // useEffect
 useEffect(() => {
   getItems();
-  getImage()
 }, [])
 
 //POST 
@@ -62,15 +46,9 @@ const postItems = (newItem) => {
 }
 
 //POST 
-const postImage = (file, alt, description) => {
-  const formData = new FormData();
-  formData.append('alt', newAlt);
-  formData.append('image', file);
-  formData.append('description', newDescription);
-
-  axios.post('/gallery', formData)
+const postImage = (formData) => {
+  axios.post('/single', formData)
       .then((response) => {
-        console.log(response.data.filePath, "filepath")
       })
     .catch((error) => {
       // Handle any errors
