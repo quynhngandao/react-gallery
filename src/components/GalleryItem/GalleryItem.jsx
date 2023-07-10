@@ -7,8 +7,30 @@ import { CardActionArea, CardActions } from '@mui/material';
 import HandleCount from '../HandleCount/HandleCount';
 import HandleDelete from '../HandleDelete/HandleDelete';
 import './GalleryItem.css'
+import Collapse from '@mui/material/Collapse';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { styled } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
+import { useState } from 'react';
+
+const ExpandMore = styled((props) => {
+  const { expand, ...other } = props;
+  return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+  marginLeft: 'auto',
+  transition: theme.transitions.create('transform', {
+    duration: theme.transitions.duration.shortest,
+  }),
+}));
 
 function GalleryItem(props) {
+const [expanded, setExpanded] = useState(false);
+
+const handleExpandClick = () => {
+  setExpanded(!expanded);
+  };
+
   return (
     <Card className="card" sx={{ maxWidth: 500, boxShadow: 10,
       bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#101010' : '#fff'),
@@ -24,11 +46,25 @@ function GalleryItem(props) {
           image={props.item.path}
           alt={props.item.alt}
         />
-        <CardContent>
+          <CardContent>
+         <ExpandMore
+          expand={expanded}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label="show more"
+        >
+       <ExpandMoreIcon />
+        </ExpandMore>
+      
+        <Collapse  onClick={handleExpandClick} in={expanded} timeout="auto" unmountOnExit>
           <Typography  sx={{ textTransform: 'capitalize', letterSpacing:2, variant:"body1", color:"#0F66D0", fontWeight:'bold'}} >
             {props.item.description}
           </Typography>
+          </Collapse>
+        
         </CardContent>
+       
+   
       </CardActionArea>
       <CardActions className='content-btn' sx={{justifyContent:"space-evenly"}}>
         <HandleCount likes={props.likes} updateLikes={props.updateLikes} item={props.item} />
