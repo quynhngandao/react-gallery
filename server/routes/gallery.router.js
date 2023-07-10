@@ -40,7 +40,7 @@ router.post("/", (req, res) => {
       console.log("Error adding item to database", error);
       res.sendStatus(500);
     });
-}); // END PUT Route
+}); // END POST Route
 
 // PUT Route
 router.put("/:id", (req, res) => {

@@ -1,37 +1,60 @@
-import React, { useState } from 'react';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import {Grid}  from '@mui/material';
-import SendIcon from '@mui/icons-material/Send';
+import React, { useState } from "react";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import { Grid } from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
 
-function GalleryForm({ postItems }) {
-  // hook
-  const [newAlt, setNewAlt] = useState('');
-  const [newPath, setNewPath] = useState('');
-  const [newDescription, setNewDescription] = useState('');
+function GalleryForm({ postItems, postImage }) {
+  const [newAlt, setNewAlt] = useState("");
+  const [newPath, setNewPath] = useState("");
+  const [newDescription, setNewDescription] = useState("");
 
-  // handleSubmit
   function handleSubmit(e) {
     e.preventDefault();
+    console.log("button clicked");
 
-    console.log('button clicked');
-
-    postItems({
+    const newItem = {
       alt: newAlt,
       path: newPath,
       description: newDescription,
-    });
-    // clear input fields
-    setNewAlt('');
-    setNewPath('');
-    setNewDescription('');
+    };
+
+    postItems(newItem);
+
+    if (newPath) {
+      const fileInput = document.querySelector('input[type="file"]');
+      const file = fileInput.files[0];
+      const formData = new FormData();
+      formData.append("alt", newAlt);
+      formData.append("image", file);
+      formData.append("description", newDescription);
+      
+      postImage(FormData);
+    }
+    setNewAlt("");
+    setNewPath("");
+    setNewDescription("");
+  }
+
+  function handleFileChange(e) {
+    e.stopPropagation();
+    e.preventDefault();
+
+    const file = e.target.files[0];
+    setNewPath(URL.createObjectURL(file));
   }
 
   return (
     <div className="form-container">
-      <form className="form" onSubmit={handleSubmit}>
-        <Grid container spacing={4} alignItems="flex-end">
-          <Grid item xs={4}>
+      <form
+        action="/single"
+        method="POST"
+        encType="multipart/form-data"
+        className="form"
+        onSubmit={handleSubmit}
+      >
+        <Grid container spacing={4} justifyContent="space-evenly">
+          <Grid item xs={4} >
             <TextField
               className="name"
               label="Name"
@@ -43,7 +66,7 @@ function GalleryForm({ postItems }) {
           </Grid>
           <Grid item xs={4}>
             <TextField
-              className="url"
+              className="path"
               label="URL"
               placeholder="Link to image"
               onChange={(e) => setNewPath(e.target.value)}
@@ -60,6 +83,14 @@ function GalleryForm({ postItems }) {
               value={newDescription}
               fullWidth
             />
+          </Grid>
+          <Grid item xs={4}>
+            <input
+              type="file"
+              name="image"
+              onChange={handleFileChange}
+            />
+            {newPath && <img src={newPath} alt="Uploaded" style={{ maxWidth:'400px', maxHeight: '400px', marginTop: '20px'}}/>}
           </Grid>
           <Grid item xs={12}>
             <Button type="submit" variant="contained" endIcon={<SendIcon />}>
