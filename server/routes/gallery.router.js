@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const pool = require("../modules/pool");
 
+// DO NOT MODIFY THIS FILE FOR BASE MODE
+
 // GET Route
 router.get("/", (req, res) => {
   const queryText = `SELECT * FROM "weekend_gallery" ORDER BY id;`;
@@ -22,8 +24,10 @@ router.post("/", (req, res) => {
   const alt = req.body.alt;
   const path = req.body.path;
   const description = req.body.description;
+
   const queryText = `INSERT INTO "weekend_gallery" (alt, path, description)
   VALUES ($1, $2, $3);`;
+
   pool
     .query(queryText, [alt, path, description])
     .then((result) => {

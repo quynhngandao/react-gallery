@@ -1,32 +1,17 @@
 const express = require("express");
 const router = express.Router();
 const pool = require("../modules/pool");
-const path = require('path')
-
 const multer = require("multer");
+
 const fileStorageEngine = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "./public/images");
+    cb(null, "/Users/quynhdao/Desktop/Prime/Tier2/w10/hw/react-gallery/public/images");
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + '--' + file.originalname);
   },
 });
 const upload = multer({ storage: fileStorageEngine });
-
-router.get('/', (req, res) => {
-    const queryText = `SELECT * FROM "weekend_gallery"`;
-  pool
-    .query(queryText)
-    .then((result) => {
-      console.log(`Database query successful`, result);
-      res.send(result.rows);
-    })
-    .catch((error) => {
-      console.log('Error making database query', error);
-      res.sendStatus(500);
-    });
-})
 
 router.post("/", upload.single("image"), (req, res) => {
   const { alt, description } = req.body;
