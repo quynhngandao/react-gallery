@@ -47,7 +47,7 @@ function GalleryForm({ postItems, postImage }) {
   return (
     <div className="form-container">
       <form
-        action="/gallery"
+        action="/single"
         method="POST"
         encType="multipart/form-data"
         className="form"

@@ -27,24 +27,23 @@ function App() {
   })
 }
 
- // GET 
- const getImage = () => {  
-  axios({
-    method: "GET", 
-    url: '/single',
-  }).then((response) => {
-    console.log("Response: ", response);
-      console.log("Response.data: ", response.data);
-      setGalleryList(response.data);
-  }).catch((error) => {
-    console.log("Error on GET: ", error);
-})
-}
+//  // GET 
+//  const getImage = () => {  
+//   axios({
+//     method: "GET", 
+//     url: '/single',
+//   }).then((response) => {
+//     console.log("Response: ", response);
+//       console.log("Response.data: ", response.data);
+//       setGalleryList(response.data);
+//   }).catch((error) => {
+//     console.log("Error on GET: ", error);
+// })
+// }
 
 // useEffect
 useEffect(() => {
   getItems();
-  getImage()
 }, [])
 
 //POST 
@@ -68,7 +67,7 @@ const postImage = (file, alt, description) => {
   formData.append('image', file);
   formData.append('description', newDescription);
 
-  axios.post('/gallery', formData)
+  axios.post('/single', formData)
       .then((response) => {
         console.log(response.data.filePath, "filepath")
       })
