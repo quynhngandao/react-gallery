@@ -68,9 +68,8 @@ const postImage = (file, alt, description) => {
   formData.append('image', file);
   formData.append('description', newDescription);
 
-  axios.post('/single', formData)
+  axios.post('/gallery', formData)
       .then((response) => {
-        setNewPath(`/single/${response.data.filePath}`);
         console.log(response.data.filePath, "filepath")
       })
     .catch((error) => {
