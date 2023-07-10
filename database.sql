@@ -1,8 +1,8 @@
 CREATE TABLE weekend_gallery (
     id SERIAL PRIMARY KEY,
-    alt VARCHAR(800) NOT NULL,
-    path VARCHAR(800) NOT NULL,
-    description VARCHAR(800) NOT NULL,
+    alt VARCHAR(800),
+    path VARCHAR(10000),
+    description VARCHAR(800),
     likes INTEGER DEFAULT 0
 );
 
