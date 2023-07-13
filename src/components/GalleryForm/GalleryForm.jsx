@@ -13,14 +13,6 @@ function GalleryForm({ postItems, postImage }) {
     e.preventDefault();
     console.log("button clicked");
 
-    const newItem = {
-      alt: newAlt,
-      path: newPath,
-      description: newDescription,
-    };
-
-    postItems(newItem);
-
     if (newPath) {
       const fileInput = document.querySelector('input[type="file"]');
       const file = fileInput.files[0];
@@ -28,9 +20,17 @@ function GalleryForm({ postItems, postImage }) {
       formData.append("alt", newAlt);
       formData.append("image", file);
       formData.append("description", newDescription);
-      
-      postImage(FormData);
+      postImage(formData);
+
+      const newItem = {
+        alt: newAlt,
+        path: newPath,
+        description: newDescription,
+      };
+      postItems(newItem);
     }
+
+    // clear inputs
     setNewAlt("");
     setNewPath("");
     setNewDescription("");
@@ -41,7 +41,10 @@ function GalleryForm({ postItems, postImage }) {
     e.preventDefault();
 
     const file = e.target.files[0];
-    setNewPath(URL.createObjectURL(file));
+    // this will make the path as file.originalname
+    setNewPath('images/' + file.name);
+ 
+
   }
 
   return (
@@ -49,7 +52,7 @@ function GalleryForm({ postItems, postImage }) {
       <form
         action="/single"
         method="POST"
-        encType="multipart/form-data"
+     
         className="form"
         onSubmit={handleSubmit}
       >
