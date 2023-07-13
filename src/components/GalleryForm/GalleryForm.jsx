@@ -5,14 +5,17 @@ import { Grid } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 
 function GalleryForm({ postItems, postImage }) {
+  // State
   const [newAlt, setNewAlt] = useState("");
   const [newPath, setNewPath] = useState("");
   const [newDescription, setNewDescription] = useState("");
 
+  // handle form submit
   function handleSubmit(e) {
+    // prevent default form submit
     e.preventDefault();
-    console.log("button clicked");
 
+    // if newpath = true, append the following to formData
     if (newPath) {
       const fileInput = document.querySelector('input[type="file"]');
       const file = fileInput.files[0];
@@ -20,13 +23,16 @@ function GalleryForm({ postItems, postImage }) {
       formData.append("alt", newAlt);
       formData.append("image", file);
       formData.append("description", newDescription);
+      // upload data for local upload
       postImage(formData);
 
+      // object item
       const newItem = {
         alt: newAlt,
         path: newPath,
         description: newDescription,
       };
+      // upload data for url upload
       postItems(newItem);
     }
 
@@ -36,15 +42,13 @@ function GalleryForm({ postItems, postImage }) {
     setNewDescription("");
   }
 
-  function handleFileChange(e) {
-    e.stopPropagation();
-    e.preventDefault();
-
+  // handle file change
+  function handleFileChange() {
+    // retrieve the selected file from the file input element
     const file = e.target.files[0];
-    // this will make the path as file.originalname
-    setNewPath('images/' + file.name);
- 
-
+    // set path as file.originalname
+    // images is the folder where image is stored and uploaded to
+    setNewPath("images/" + file.name);
   }
 
   return (
@@ -52,12 +56,11 @@ function GalleryForm({ postItems, postImage }) {
       <form
         action="/single"
         method="POST"
-     
         className="form"
         onSubmit={handleSubmit}
       >
         <Grid container spacing={4} justifyContent="space-evenly">
-          <Grid item xs={4} >
+          <Grid item xs={4}>
             <TextField
               className="name"
               label="Name"
@@ -88,12 +91,19 @@ function GalleryForm({ postItems, postImage }) {
             />
           </Grid>
           <Grid item xs={4}>
-            <input
-              type="file"
-              name="image"
-              onChange={handleFileChange}
-            />
-            {newPath && <img src={newPath} alt="Uploaded" style={{ maxWidth:'400px', maxHeight: '400px', marginTop: '20px'}}/>}
+            <input type="file" name="image" onChange={handleFileChange} />
+            {/* If newPath = true, src = {newPath} */}
+            {newPath && (
+              <img
+                src={newPath}
+                alt="Uploaded"
+                style={{
+                  maxWidth: "400px",
+                  maxHeight: "400px",
+                  marginTop: "20px",
+                }}
+              />
+            )}
           </Grid>
           <Grid item xs={12}>
             <Button type="submit" variant="contained" endIcon={<SendIcon />}>

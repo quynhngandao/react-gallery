@@ -1,35 +1,36 @@
-import * as React from 'react';
-import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
+import * as React from "react";
+import IconButton from "@mui/material/IconButton";
+import Badge from "@mui/material/Badge";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import './HandleCount.css'
+import "./HandleCount.css";
 
- function notificationsLabel(count) {
-  if (count >=0) {
+function notificationsLabel(count) {
+  if (count >= 0) {
     return count;
   }
-  }
+}
 
 function HandleCount(props) {
-
- const handleUpdateLikes = () => {
-  props.updateLikes({
-    id: props.item.id
-  })
-  console.log(props.item.id)
- }
+  const handleUpdateLikes = () => {
+    props.updateLikes({
+      id: props.item.id,
+    });
+    console.log(props.item.id);
+  };
 
   return (
-    <IconButton  onClick={handleUpdateLikes} size="medium" color="primary" aria-label={notificationsLabel(props.item.likes)}>
+    <IconButton
+      onClick={handleUpdateLikes}
+      size="medium"
+      color="primary"
+      aria-label={notificationsLabel(props.item.likes)}
+    >
       <Badge badgeContent={props.item.likes} color="secondary">
-      <FavoriteIcon />
+        <FavoriteIcon />
       </Badge>
-      <p className='text'>{props.item.likes} likes </p>
+      <p className="text">{props.item.likes} likes </p>
     </IconButton>
   );
 }
 
 export default HandleCount;
-
-
-

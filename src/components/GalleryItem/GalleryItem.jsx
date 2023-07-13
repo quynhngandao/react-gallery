@@ -14,6 +14,7 @@ import IconButton from "@mui/material/IconButton";
 import { useState } from "react";
 import "./GalleryItem.css";
 
+// Expand text for image card
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -26,49 +27,68 @@ const ExpandMore = styled((props) => {
 }));
 
 function GalleryItem(props) {
+  // State
   const [showCard, setShowCard] = useState(false);
   const [expanded, setExpanded] = useState(false);
 
+  // handle click for expand
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
+  // handle card flip - > hide image, show description
   const handleShowCard = () => {
     setShowCard(!showCard);
   };
 
   let description;
+  // SHOW
   if (!showCard) {
     description = (
       <>
-      <CardActionArea onClick={handleShowCard}>
-        <CardMedia
-          component="img"
-          height="250"
-          image={props.item.path}
-          alt={props.item.alt}
-        />
-         
-      </CardActionArea>
-      
-      <CardContent>
-         <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-       <ExpandMoreIcon />
-        </ExpandMore>
+        <CardActionArea onClick={handleShowCard}>
+          <CardMedia
+            component="img"
+            height="250"
+            image={props.item.path}
+            alt={props.item.alt}
+          />
+        </CardActionArea>
 
-        <Collapse  onClick={handleExpandClick} in={expanded} timeout="auto" unmountOnExit>
-          <Typography  sx={{ textTransform: 'capitalize', letterSpacing:2, variant:"body1", color:"#0F66D0", fontWeight:'bold'}} >
-            {props.item.alt}
-          </Typography>
+        <CardContent>
+          {/* expand */}
+          <ExpandMore
+            expand={expanded}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show more"
+          >
+            <ExpandMoreIcon />
+          </ExpandMore>
+
+          {/* collapse */}
+          <Collapse
+            onClick={handleExpandClick}
+            in={expanded}
+            timeout="auto"
+            unmountOnExit
+          >
+            <Typography
+              sx={{
+                textTransform: "capitalize",
+                letterSpacing: 2,
+                variant: "body1",
+                color: "#0F66D0",
+                fontWeight: "bold",
+              }}
+            >
+              {props.item.alt}
+            </Typography>
           </Collapse>
         </CardContent>
-        </>
+      </>
     );
+    // HIDE
   } else {
     description = (
       <CardActionArea onClick={handleShowCard}>
@@ -106,8 +126,11 @@ function GalleryItem(props) {
         borderRadius: 3,
       }}
     >
+      
+      {/*  ACTION  */}
       {description}
-     
+
+      {/* UPDATE/DELETE */}
       <CardActions
         className="content-btn"
         sx={{ justifyContent: "space-evenly" }}
