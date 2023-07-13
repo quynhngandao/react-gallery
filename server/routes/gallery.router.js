@@ -3,7 +3,7 @@ const router = express.Router();
 const pool = require("../modules/pool");
 const PORT = process.env.PORT || 5000; 
 
-// GET Route
+// GET Route to display items in gallery
 router.get("/", (req, res) => {
   const queryText = `SELECT * FROM "weekend_gallery" ORDER BY id;`;
   pool
@@ -18,7 +18,7 @@ router.get("/", (req, res) => {
     });
 }); // END GET Route
 
-// POST Route
+// POST Route to post item (alt, path, description) in gallery 
 router.post("/", (req, res) => {
   const alt = req.body.alt;
   const path = req.body.path;
@@ -39,7 +39,7 @@ router.post("/", (req, res) => {
     });
 }); // END POST Route
 
-// PUT Route
+// PUT Route to update likes 
 router.put("/:id", (req, res) => {
   const galleryId = req.params.id;
   let queryText = `UPDATE "weekend_gallery" SET "likes" = "likes" + 1 WHERE "id" = 
@@ -56,7 +56,7 @@ $1;`;
     });
 }); // END PUT Route
 
-// DELETE route
+// DELETE route to delete item 
 router.delete("/:id", (req, res) => {
   const idToDelete = req.params.id;
   let queryText = `DELETE from "weekend_gallery" WHERE "id"=$1;`;
