@@ -4,7 +4,7 @@
 
 _Duration: weekend challenge_
 
-This is display of a gallery built with React. The data are stored in a postgreSQL database, and the client-side display these data (image, description, likes). User can click the heart button to "like" an image. 
+This is display of a gallery built with React. The data are stored in a postgreSQL database, and the client-side display these data (image, name, description, and likes). User can click the heart button to "like" an image. They can also upload images to the database with a URL link or from a local file (made possible with multer - middleware for uploading files). In addition, user can delete images, which also removes data from the database. Addition UI styling such as collapsing/expanding the image text or hiding the image were made using MUI. 
 
 ## Installation
 
@@ -28,6 +28,7 @@ This is display of a gallery built with React. The data are stored in a postgreS
 - [React.js](https://reactjs.org/)
 - [Axios.js](https://axios-http.com)
 - [Material UI](https://mui.com/)
+- [Multer](https://github.com/expressjs/multer)
 
 ## Acknowledgement
 Thanks to [Prime Digital Academy](www.primeacademy.io) who equipped and helped me to make this application a reality. 
