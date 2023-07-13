@@ -1,24 +1,25 @@
 h1 {
-    font-family: 'Lilita one';
-    font-size: 50px;
-    font-weight: 800px;
-    text-shadow: 4px 2px #242323ad;
-    margin: 0;
-    padding: 20px;
-   color:rgb(255, 255, 255);
-  
+  font-family: "Lilita one";
+  font-size: 50px;
+  font-weight: 800px;
+  text-shadow: 4px 2px #242323ad;
+  margin: 0;
+  padding: 20px;
+  color: rgb(255, 255, 255);
 }
 
 .header-banner {
-    background-color:#0654a2cf;
-    margin: 0;
-    margin-bottom: 30px;
+  background-color: #0654a2cf;
+  margin: 0;
+  margin-bottom: 30px;
 }
 
 body {
-    margin:0;
-    background-color: aliceblue;
-    padding: 0;
-} 
+  margin: 0;
+  background-color: aliceblue;
+  padding: 0;
+}
 
-.photo-icon {margin-right: 5px;}
+.photo-icon {
+  margin-right: 5px;
+}
