@@ -18,23 +18,9 @@ const fileStorageEngine = multer.diskStorage({
 const upload = multer({ storage: fileStorageEngine });
 
 router.post("/", upload.single("image"), function (req, res, next) {
-  // req.body will hold the text fields
-  const { alt, description } = req.body;
-
-  // req.file is the `image` file
+  // already have POST in gallery router so don't need to insert other data, only upload images
   console.log("req.file", req.file);
 
-  const queryText = `INSERT INTO "weekend_gallery" (alt, description) VALUES ($1, $2);`;
-  pool
-    .query(queryText, [alt, description])
-    .then((response) => {
-      res.status(201);
-      console.log("Added item to database", response);
-    })
-    .catch((error) => {
-      console.log("Error adding item to database", error);
-      res.sendStatus(500);
-    });
 });
 
 module.exports = router;

@@ -1,8 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const pool = require("../modules/pool");
-
-// DO NOT MODIFY THIS FILE FOR BASE MODE
+const PORT = process.env.PORT || 5000; 
 
 // GET Route
 router.get("/", (req, res) => {
